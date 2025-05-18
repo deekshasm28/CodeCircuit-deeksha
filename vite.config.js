@@ -2,10 +2,11 @@ import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
 
-const configHorizonsViteErrorHandler = `/* omitted for brevity */`;
-const configHorizonsRuntimeErrorHandler = `/* omitted for brevity */`;
-const configHorizonsConsoleErrroHandler = `/* omitted for brevity */`;
-const configWindowFetchMonkeyPatch = `/* omitted for brevity */`;
+// Optional: Error handlers (left shortened)
+const configHorizonsViteErrorHandler = `/* your vite overlay error handler here */`;
+const configHorizonsRuntimeErrorHandler = `/* your runtime error handler here */`;
+const configHorizonsConsoleErrroHandler = `/* your console error handler here */`;
+const configWindowFetchMonkeyPatch = `/* your fetch monkey patch here */`;
 
 const addTransformIndexHtml = {
 	name: 'add-transform-index-html',
@@ -23,19 +24,15 @@ const addTransformIndexHtml = {
 };
 
 console.warn = () => {};
-
 const logger = createLogger();
 const loggerError = logger.error;
-
 logger.error = (msg, options) => {
-	if (options?.error?.toString().includes('CssSyntaxError: [postcss]')) {
-		return;
-	}
+	if (options?.error?.toString().includes('CssSyntaxError: [postcss]')) return;
 	loggerError(msg, options);
 };
 
 export default defineConfig({
-	base: '/CodeCircuit-deeksha/', // ✅ correct place for GitHub Pages
+	base: '/', // ✅ for Netlify
 	customLogger: logger,
 	plugins: [react(), addTransformIndexHtml],
 	server: {
