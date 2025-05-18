@@ -198,3 +198,7 @@ export default defineConfig({
 		},
 	},
 });
+// vite.config.js
+export default {
+  base: '/CodeCircuit-deeksha/', // use your GitHub repo name here
+}
